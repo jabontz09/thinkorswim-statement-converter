@@ -1,21 +1,7 @@
 import pandas as pd
+import argparse
+import os
 from io import StringIO
-
-file = '2022-06-21-AccountStatement.csv'
-
-with open(file, 'r') as f:
-    string_csv = ' '.join(f.readlines())
-    index = string_csv.find("Account Trade History")
-    trade_history = string_csv.split("Account Trade History")[1].split(',', 1)[1].split('Profits and Losses')[0]
-
-#df = pd.read_csv(trade_history)
-
-f = StringIO(trade_history)
-df = pd.read_csv(f)
-
-df = df.sort_values(by="Exec Time", ascending=True)
-
-print(df)
 
 def calculate_average_price(current_avg, current_quantity, new_price, new_quantity):
   """
@@ -71,6 +57,7 @@ def aggregate_trades(dataframe):
             new_trade['open_time'] = row['Exec Time']
             new_trade['status'] = 'OPEN'
             new_trade['side'] = row['Side']
+            print(row)
             new_trade['open_quantity'] = abs(row['Qty'])
             new_trade['symbol'] = row['Symbol']
             new_trade['avg_open_price'] = row['Price']
@@ -80,10 +67,36 @@ def aggregate_trades(dataframe):
             trades.append(new_trade)
 
     return pd.DataFrame(trades)
-                  
-aggregated = aggregate_trades(df)
 
-aggregated.to_csv(f'./converted/{file}-aggregated.csv')
+if __name__ == "__main__":        
+    parser = argparse.ArgumentParser(description="Convert a CSV file to a new format.")
 
-print(aggregated)
+    # Add the input file argument
+    parser.add_argument("file", help="Path to the input CSV file.")
+
+    args = parser.parse_args()
+
+    if not os.path.exists(args.file):  # Check if the path exists at all
+        print(f"Error: Input file path '{args.file}' does not exist.")
+    elif not os.path.isfile(args.file):  # Check if it's a file (not a directory)
+        print(f"Error: '{args.file}' is not a file.")
+    else:
+        with open(args.file, 'r') as f:
+            string_csv = ' '.join(f.readlines())
+            index = string_csv.find("Account Trade History")
+            trade_history = string_csv.split("Account Trade History")[1].split(',', 1)[1].split('Profits and Losses')[0]
+
+        f = StringIO(trade_history)
+
+        df = pd.read_csv(f)
+        df = df.sort_values(by="Exec Time", ascending=True)
+
+        aggregated = aggregate_trades(df)
+        file_name = args.file.split('\\')[-1]
+        aggregated.to_csv(f'./converted/{file_name}-aggregated.csv')
+
+        print(f"Operation success! Converted file can be found in ./converted/{file_name}-aggregated.csv")
+    
+
+
 
