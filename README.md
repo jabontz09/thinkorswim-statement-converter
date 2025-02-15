@@ -4,11 +4,11 @@ This Python CLI tool converts Thinkorswim account csv statements into a more man
 
 Turn this:
 
-![alt text](image_docs\image.png)
+![alt text](https://github.com/jabontz09/thinkorswim-statement-converter/blob/main/image_docs/image.png?raw=true)
 
 Into this:
 
-![alt text](image_docs\image-1.png)
+![alt text](https://github.com/jabontz09/thinkorswim-statement-converter/blob/main/image_docs/image-1.png?raw=true)
 
 
 ## Usage
@@ -39,8 +39,8 @@ A new file with the converted data format will then be created in the [converted
 ## How to download statements from Thinkorswim
 1. Head over to the "monitor" tab then  "Account Statements"
 
-    ![alt text](image.png)
+    ![alt text](https://github.com/jabontz09/thinkorswim-statement-converter/blob/main/image_docs/thinkorswimtabs.png?raw=true)
 
 2. click on menu icon on the very left and choose "export to file"
 
-    ![alt text](image-1.png)
+    ![alt text](https://github.com/jabontz09/thinkorswim-statement-converter/blob/main/image_docs/thinkorswim-export.png?raw=true)
