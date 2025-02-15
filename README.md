@@ -1,4 +1,4 @@
-## Thinkorswim Statement Converter for Trade Monitoring
+## Thinkorswim Statement Converter for Trade Journaling
 This Python CLI tool converts Thinkorswim account csv statements into a more manageable format for trade journaling and analysis.  It transforms complex, difficult-to-parse statements into clear, structured data, enabling you to focus on what matters most: understanding your trading performance.
 
 
